@@ -7,6 +7,119 @@
     <title>MainPage</title>
     <link rel="stylesheet" href="./style1.css">
 </head>
+<script>
+    function funct(m)
+    {
+        var inpt = document.getElementById("input").value;
+        var cip = document.getElementById("cipher").value;
+        var code = document.getElementById("ipstr").value;
+        if(code == "") 
+        {
+            document.getElementById("message").innerHTML = "Enter a code";
+            return false;
+        }
+        else if(cip == "Wrong")
+        {
+            document.getElementById("message").innerHTML = "Select a Cipher";
+            return false;
+        }
+        else if(cip == "Base64")
+        {
+            if (m == 1)
+            {
+                document.getElementById("message").innerHTML = btoa(code);
+                return false;
+            }
+            if (m == 2)
+            {
+                document.getElementById("message").innerHTML = atob(code);
+                return false;
+            }
+        }
+        else if(cip == "CaesarCipher")
+        {
+            if (inpt == "")
+            {
+                document.getElementById("message").innerHTML = "Enter neumeric input for cipher";
+                return false;
+            }
+            else if (m==1)
+            {
+                function ccipher(str, amount) 
+                {
+                    if (amount < 0)
+                    {
+                        return ccipher(str, amount + 26);
+                    }
+                    var res = '';
+                    for (var i = 0; i < str.length; i++) 
+                    {
+                        var c = str[i];
+                        if (c.match(/[a-zA-Z]/i))
+                        {
+                            var code = str.charCodeAt(i);
+                            if ((code >= 65) && (code <= 90))
+                            {
+                                c = String.fromCharCode(((code - 65 + amount) % 26) + 65);
+                            }
+                            else if ((code >= 97) && (code <= 122))
+                            {
+                                c = String.fromCharCode(((code - 97 + amount) % 26) + 97);
+                            }
+                        }
+                        res += c;
+                    }
+                    return res;
+                }
+                inpt=Number(inpt)
+                document.getElementById("message").innerHTML = ccipher(code,inpt);
+                return false;
+            }
+            else if(m==2)
+            {
+                document.getElementById("message").innerHTML = "Work in Progress";
+                return false;
+            }
+        }
+        else if(cip == "InverseCasing")
+        {
+            function invcase(code) 
+            {
+                var ans = '';
+                for (var i = 0, len = code.length; i < len; i++) 
+                {
+                    var c = code[i];
+                    if (c == c.toLowerCase()) 
+                    {
+                        ans = ans + c.toUpperCase();
+                    } 
+                    else
+                    {
+                        ans = ans + c.toLowerCase();
+                    }
+                }
+                return ans;
+            }
+            document.getElementById("message").innerHTML = invcase(code);
+            return false;
+        }
+        else if(cip == "MorseCode")
+        {
+            document.getElementById("message").innerHTML = "Work in Progress";
+            return false;
+        }
+        else if(cip == "VigenereCipher")
+        {
+            document.getElementById("message").innerHTML = "Work in Progress";
+            return false;
+        }
+        else if(cip == "CameltoSnake")
+        {
+            document.getElementById("message").innerHTML = "Work in Progress";
+            return false;
+        }
+    }
+</script>
 <body class="background1">
     <ul class="navbar">
         <li class="navlinks"><a class="nav" href="#">Home</a></li>
@@ -14,10 +127,10 @@
         <li class="navlinks"><a class="nav" href="#">Contact</a></li>
         <li class="navlinks"><a class="nav" href="#">About</a></li>
     </ul>
-    <div style="text-align: center; padding-top: 5%;" >
-        <input type="button" class="button" value="Encode">
+    <div style="text-align: center; padding-top: 5%;" id = "mth">
+        <input type="button" class="button" value="Encode" onclick="funct(1)">
         &emsp;
-        <input type="button" class="button" value="Decode">
+        <input type="button" class="button" value="Decode" onclick="funct(2)">
     </div>
     <div class="Midportion">
         <div class="inp">
@@ -33,21 +146,22 @@
                 <br><br>
                 <select name="cipher" id="cipher">
                     <option value="Wrong">Encoding/Decoding Type</option>
+                    <option value="Base64">Binary To Ascii</option>
                     <option value="CaesarCipher">Caesar Cipher</option>
-                    <option value="Base64">Base64</option>
-                    <option value="MorseCode">Morse Code</option>
                     <option value="InverseCasing">Inverse Casing</option>
+                    <option value="MorseCode">Morse Code</option>
                     <option value="VigenereCipher">Vigenere Cipher</option>
                     <option value="CameltoSnake">Camel case to Snake case</option>
                 </select>
             </div> 
             <br><br>
-            <input type="button" value="Run">         
+            <input type="button" value="Run" onclick="funct(1)">         
         </div>
         <div class="otp">
             OUTPUT:
             <div class="outp">
-                <span id = "otpmsg" class="outp"></span>
+                <span id = "message" class="outp">
+                </span>
             </div>
         </div>
     </div>

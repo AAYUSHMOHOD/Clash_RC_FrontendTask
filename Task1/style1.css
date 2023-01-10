@@ -1,6 +1,6 @@
 .background1
 {
-    background-image: url('background.jpg');
+    background-color: rgb(77, 94, 53);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -207,6 +207,12 @@
         font-size: xx-large;
     }
     
+    .Midportion
+    {
+        align-items: center;
+        align-self: center;
+    }
+
     .inp
     {
         display: block;
@@ -237,6 +243,7 @@
     
     .foot
     {
+        background-color: rgb(77, 94, 53);
         font-size: large;
     }
 }
